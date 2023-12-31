@@ -11,7 +11,38 @@
     {% endfor %}
 {% endif %}
 
-<h1>Text extract</h1>
+<!-- Add any required CSS or stylesheets -->
+<style>
+    /* Add CSS styles for better readability */
+    .text-container {
+        width: 80%;
+        margin: auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        background-color: #f9f9f9;
+        font-family: Arial, sans-serif;
+    }
+    p {
+        margin-bottom: 10px;
+    }
+</style>
+
+<div class="text-container">
+    <h1>Extracted Text</h1>
+    <hr>
+    <div class="text-content">
+        <p>{{ extracted_text|linebreaksbr }}</p>
+        <!-- 'extracted_text' is the variable containing extracted text -->
+    </div>
+</div>
+
+<div class = "container">
+    <div class = "row justify-content-left">
+        <div class = "col">
+            <a href = "{% url 'UploadPdf' %}" class="btn btn-dark my-3">Go back</a>
+        </div>
+    </div>
+</div>
 
 
 {% endblock content %}

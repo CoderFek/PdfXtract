@@ -12,7 +12,17 @@
     {% endfor %}
 {% endif %}
 
-<h1>Emails extract</h1>
+
+<div class="container mt-4">
+    <h2>Extracted Emails</h2>
+    <div class="list-group">
+        {% for email in extracted_emails %}
+            <a href="{{ link }}" class="list-group-item list-group-item-action link-item" target="_blank">
+                <span class="link-number">{{ forloop.counter }}.</span> {{ email }}
+            </a>
+        {% endfor %}
+    </div>
+</div>
 
 <div class = "container">
     <div class = "row justify-content-center">
@@ -21,5 +31,20 @@
         </div>
     </div>
 </div>
+
+<style>
+    .link-item {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        padding: 0.75rem;
+    }
+
+    .link-number {
+        margin-right: 10px;
+        font-weight: bold;
+    }
+</style>
+
 
 {% endblock content %}
