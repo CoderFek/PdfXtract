@@ -71,6 +71,40 @@ form select:hover {
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
 }
 
+.tooltip-container {
+    position: relative; /* Needed for absolute positioning of the tooltip */
+}
+
+.tooltip-text {
+    visibility: hidden;
+    width: 190px; /* Tooltip width */
+    background-color: #fdfdfd; /* Tooltip background color */
+    color: #000000; /* Tooltip text color */
+    text-align: center; /* Center text */
+    border-radius: 5px; /* Rounded corners */
+    padding: 5px; /* Padding inside tooltip */
+    position: absolute; /* Positioning tooltip */
+    z-index: 1; /* Ensure tooltip is above other elements */
+    top: 20px; /* Position above the icon */
+    right: 0; /* Align to the right */
+    opacity: 0; /* Initially hidden */
+    transition: opacity 0.3s; /* Smooth transition for visibility */
+}
+
+.tooltip-container:hover .tooltip-text {
+    visibility: visible; /* Show tooltip on hover */
+    opacity: 1; /* Make it fully opaque */
+}
+
+.info-icon {
+    cursor: pointer; /* Change cursor to indicate it's clickable */
+    font-weight: bold; /* Make the "i" stand out */
+    color: #777; /* Change color to indicate it's informational */
+    position: absolute; /* Absolute positioning for the icon */
+    top: -6px; /* Adjust top position */
+    right: -15px; /* Adjust right position */
+}
+
 /* Responsive Styles */
 @media (max-width: 768px) {
     .branding h1 {
