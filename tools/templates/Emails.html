@@ -27,7 +27,8 @@
 <div class = "container">
     <div class = "row justify-content-center">
         <div class = "col">
-            <a href = "{% url 'UploadPdf' %}" class="btn btn-dark my-3">Go back</a>
+            <a href = "{% url 'upload' %}" class="btn btn-dark my-3">Go back</a>
+            <a href="{% url 'download_csv' 'emails' %}" class="btn btn-primary my-3">Download CSV</a>
         </div>
     </div>
 </div>

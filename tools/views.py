@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .forms import UploadPdfForm
 from django.contrib import messages
 from .models import Category
+import csv
 
 
 import PyPDF2
@@ -25,7 +26,7 @@ def linkview(request):
 
         return render(request, 'Link.html', {'extracted_links': extracted_links})
     else:
-        return HttpResponse("Extracted links not found")
+        return HttpResponse("Oops! extracted links not found")
 
 
 def extract_emails(text):
@@ -46,7 +47,7 @@ def emailview(request):
         # Pass the extracted emails to the 'text.html' template
         return render(request, 'Emails.html', {'extracted_emails': extracted_emails})
     else:
-        return HttpResponse("Extracted email not found")
+        return HttpResponse("Extracted email not found :(")
 
 
 
@@ -105,3 +106,32 @@ def pdfUploadView(request):
         form = UploadPdfForm()
 
     return render(request, 'UploadPdf.html', {'form':form})
+
+
+def download_csv(request, data_type):
+    # Define session keys and headers for emails and links
+    data_map = {
+        "emails": {"session_key": "extracted_emails", "header": ["Email"]},
+        "links": {"session_key": "extracted_links", "header": ["Link"]}
+    }
+
+    if data_type not in data_map:
+        return HttpResponse("Invalid data type", status=400)
+    
+    session_key = data_map[data_type]["session_key"]
+    header = data_map[data_type]["header"]
+    data = request.session.get(session_key, [])
+
+    if not data:
+        return HttpResponse(f"No {data_type} available to download", status=404)
+    
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = f'attachment; filename="{data_type}.csv"'
+
+    # Write CSV headers and data rows
+    writer = csv.writer(response)
+    writer.writerow(header)
+    for item in data:
+        writer.writerow([item])
+
+    return response
